@@ -2772,6 +2772,8 @@ com.mobioapp.skycolorcalender.R$attr: R$attr()
 com.mobioapp.skycolorcalender.R$dimen: int activity_horizontal_margin
 com.mobioapp.skycolorcalender.R$dimen: int activity_vertical_margin
 com.mobioapp.skycolorcalender.R$dimen: R$dimen()
+com.mobioapp.skycolorcalender.R$drawable: int bg
+com.mobioapp.skycolorcalender.R$drawable: int button_bg
 com.mobioapp.skycolorcalender.R$drawable: int ic_launcher
 com.mobioapp.skycolorcalender.R$drawable: R$drawable()
 com.mobioapp.skycolorcalender.R$id: int action_settings

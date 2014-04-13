@@ -2,18 +2,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg"
     android:gravity="center_vertical"
     android:orientation="vertical" >
 
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+          android:layout_margin="5dp"
+        android:background="@drawable/button_bg"
         android:onClick="skyColorShareButtonEvent"
         android:text="@string/share_sky" />
 
     <Button
         android:layout_width="fill_parent"
+        android:layout_margin="5dp"
         android:layout_height="wrap_content"
+        android:background="@drawable/button_bg"
         android:onClick="showSkyCalenderButtonEvent"
         android:text="@string/sky_calender" />
 
