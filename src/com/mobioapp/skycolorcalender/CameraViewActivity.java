@@ -1,5 +1,8 @@
 package com.mobioapp.skycolorcalender;
 
+import com.mobioapp.skycolorcalender.util.ProcessColorData;
+import com.mobioapp.skycolorcalender.util.ShowCamera;
+
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -12,12 +15,12 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends Activity {
+public class CameraViewActivity extends Activity {
 
 	private Camera cameraObject;
 	private ShowCamera showCamera;
 	private TextView colorTextView;
-	private FrameLayout preview;
+	private FrameLayout cameraPreview;
 
 	public static Camera isCameraAvailiable() {
 		Camera object = null;
@@ -32,18 +35,17 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.camera_view);
 		colorTextView = (TextView) findViewById(R.id.sky_color);
 		cameraObject = isCameraAvailiable();
 		showCamera = new ShowCamera(this, cameraObject);
-		 preview = (FrameLayout) findViewById(R.id.camera_preview);
-		preview.addView(showCamera);
+		cameraPreview = (FrameLayout) findViewById(R.id.camera_preview);
+		cameraPreview.addView(showCamera);
 
 	}
 
-	public void snapIt(View view) {
+	public void captureButtonEvent(View view) {
 
-		
 		cameraObject.takePicture(null, null, capturedIt);
 
 	}
@@ -52,10 +54,8 @@ public class MainActivity extends Activity {
 		public void onPictureTaken(byte[] data, Camera camera) {
 
 			Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
-			
-			new ProcessColorData(colorTextView).execute(bitmap);
 
-//			getAverageColor(bitmap);
+			new ProcessColorData(colorTextView).execute(bitmap);
 
 			if (bitmap == null) {
 				Toast.makeText(getApplicationContext(), "not taken",
@@ -64,13 +64,12 @@ public class MainActivity extends Activity {
 				Toast.makeText(getApplicationContext(), "taken",
 						Toast.LENGTH_SHORT).show();
 			}
-			
+
 			camera.startPreview();
 
 		}
 	};
 
-	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.

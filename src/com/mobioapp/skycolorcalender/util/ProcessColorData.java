@@ -1,4 +1,4 @@
-package com.mobioapp.skycolorcalender;
+package com.mobioapp.skycolorcalender.util;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;

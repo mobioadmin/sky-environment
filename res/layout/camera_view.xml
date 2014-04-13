@@ -29,7 +29,7 @@
             android:layout_width="fill_parent"
             android:layout_height="0dp"
             android:layout_weight="10"
-            android:onClick="snapIt"
+            android:onClick="captureButtonEvent"
             android:text="@string/capture" />
     </LinearLayout>
 
