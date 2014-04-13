@@ -7,14 +7,32 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 
 import org.apache.http.client.ClientProtocolException;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.os.AsyncTask;
+import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
+import android.widget.TextView;
 
+@SuppressLint("NewApi")
 public class DownloadStatisticsAsyncTask extends
-		AsyncTask<String, Integer, Boolean> {
-	
+		AsyncTask<String, Integer, String> {
+	private LinearLayout layout;
+	private Activity context;
+
+	public DownloadStatisticsAsyncTask(LinearLayout layout, Activity context) {
+		this.layout = layout;
+		this.context = context;
+
+	}
+
 	@Override
 	protected void onPreExecute() {
 		// TODO Auto-generated method stub
@@ -22,19 +40,119 @@ public class DownloadStatisticsAsyncTask extends
 	}
 
 	@Override
-	protected Boolean doInBackground(String... urlStr) {
+	protected String doInBackground(String... urlStr) {
 		// TODO Auto-generated method stub
-		
-		String result=downloadData(urlStr[0]);
-		return null;
+
+		String result = downloadData(urlStr[0]);
+		return result;
 	}
-	
+
 	@Override
-	protected void onPostExecute(Boolean result) {
+	protected void onPostExecute(String response) {
 		// TODO Auto-generated method stub
-		super.onPostExecute(result);
+		super.onPostExecute(response);
+		ArrayList<DatabaseEntity> arlist=	parseData(response);
+		
+		addRowInLayout(arlist);
 	}
-	
+
+	private void addRowInLayout(ArrayList<DatabaseEntity> arlist) {
+		
+		int max=arlist.size()<11?arlist.size():10;
+
+		for (int i = 0; i < max; i++) {
+
+			LinearLayout ll = new LinearLayout(context);
+
+			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+					LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT, 0);
+
+			params.leftMargin = 20;
+
+			LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(
+					0, LayoutParams.WRAP_CONTENT, 33);
+
+			params2.setMargins(15, 15, 15, 15);
+
+			TextView time = new TextView(context);
+			TextView color = new TextView(context);
+			TextView latlong = new TextView(context);
+			
+			DatabaseEntity dbEn=arlist.get(i);
+
+			if (i == 0) {
+				time.setText("time");
+				color.setText("color");
+				latlong.setText("latlong");
+			}else{
+				time.setText(dbEn.date);
+				color.setText(dbEn.color);
+				latlong.setText(dbEn.lat+","+dbEn.lon);
+				
+				
+			}
+			// time.setWidth(0);
+
+			time.setLayoutParams(params2);
+			color.setLayoutParams(params2);
+			latlong.setLayoutParams(params2);
+
+			ll.setLayoutParams(params);
+
+			ll.setOrientation(LinearLayout.HORIZONTAL);
+
+			ll.addView(time);
+			ll.addView(color);
+			ll.addView(latlong);
+
+			layout.addView(ll);
+		}
+
+	}
+
+	private ArrayList<DatabaseEntity> parseData(String response) {
+
+		ArrayList<DatabaseEntity> arlist = new ArrayList<DatabaseEntity>();
+
+		try {
+			JSONObject jsonObj = new JSONObject(response);
+
+			JSONArray jsArray = jsonObj.getJSONArray("album");
+
+			for (int j = 0; j < jsArray.length(); j++) {
+
+				DatabaseEntity dbEn = new DatabaseEntity();
+
+				JSONObject jsobj = jsArray.getJSONObject(j);
+
+				dbEn.b = (String) jsobj.get("b");
+
+				dbEn.g = (String) jsobj.get("g");
+
+				dbEn.r = (String) jsobj.get("r");
+
+				dbEn.color = (String) jsobj.get("color");
+
+				dbEn.lat = (String) jsobj.get("location_lat");
+
+				dbEn.lon = (String) jsobj.get("location_long");
+
+				dbEn.alt = (String) jsobj.get("location_alt");
+
+				dbEn.date = (String) jsobj.get("datetime");
+
+				arlist.add(dbEn);
+
+			}
+
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return arlist;
+
+	}
 
 	private String downloadData(String urlStr) {
 
@@ -85,6 +203,5 @@ public class DownloadStatisticsAsyncTask extends
 		return responseStr;
 
 	}
-
 
 }

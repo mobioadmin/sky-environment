@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +32,7 @@ public class CameraViewActivity extends Activity {
 	private TextView colorTextView;
 	private FrameLayout cameraPreview;
 	private ColorInfo colorInfo;
+	private Button uploadButton;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,10 @@ public class CameraViewActivity extends Activity {
 
 		setContentView(R.layout.camera_view);
 		colorTextView = (TextView) findViewById(R.id.sky_color);
+		uploadButton=(Button) findViewById(R.id.button_share);
+		
+		uploadButton.setEnabled(false);
+		
 		cameraObject = ShowCamera.isCameraAvailiable();
 		showCamera = new ShowCamera(this, cameraObject);
 		cameraPreview = (FrameLayout) findViewById(R.id.camera_preview);
@@ -90,7 +96,7 @@ public class CameraViewActivity extends Activity {
 			}
 
 			camera.startPreview();
-
+			uploadButton.setEnabled(true);
 		}
 	};
 
