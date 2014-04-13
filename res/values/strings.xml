@@ -7,5 +7,6 @@
     <string name="capture">Capture Sky Color</string>
     <string name="sky_color">Capture Sky Color</string>
     <string name="share_sky">Share Your Sky</string>
+    <string name="share_sky_info">Upload Sky</string>
     <string name="sky_calender">Sky Color Calender</string>
 </resources>

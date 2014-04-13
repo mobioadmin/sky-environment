@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.mobioapp.skycolorcalender.util.LocationHelper;
 import com.mobioapp.skycolorcalender.util.ProcessColorData;
 import com.mobioapp.skycolorcalender.util.ShowCamera;
+import com.mobioapp.skycolorcalender.util.ProcessColorData.ColorInfo;
 
 public class CameraViewActivity extends Activity {
 
@@ -28,6 +29,7 @@ public class CameraViewActivity extends Activity {
 	private ShowCamera showCamera;
 	private TextView colorTextView;
 	private FrameLayout cameraPreview;
+	private ColorInfo colorInfo;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +41,8 @@ public class CameraViewActivity extends Activity {
 		showCamera = new ShowCamera(this, cameraObject);
 		cameraPreview = (FrameLayout) findViewById(R.id.camera_preview);
 		cameraPreview.addView(showCamera);
+		
+//		colorInfo=new ColorInfo();
 
 	}
 
@@ -48,7 +52,7 @@ public class CameraViewActivity extends Activity {
 
 	}
 
-	public void shareColorWithGPSAndTime() {
+	public void shareButtonEvent() {
 
 		LocationHelper helper = new LocationHelper(this, false);
 
@@ -62,6 +66,8 @@ public class CameraViewActivity extends Activity {
 				Locale.US);
 		Log.i("sdf", "" + sdf.format(new Date()));
 
+		// new UploadInfoAsyncTask(colorName, r, g, b, location, dateTime)
+
 	}
 
 	private PictureCallback capturedIt = new PictureCallback() {
@@ -69,7 +75,7 @@ public class CameraViewActivity extends Activity {
 
 			Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
 
-			new ProcessColorData(colorTextView).execute(bitmap);
+			new ProcessColorData(colorTextView,colorInfo).execute(bitmap);
 
 			if (bitmap == null) {
 				Toast.makeText(getApplicationContext(), "not taken",

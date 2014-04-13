@@ -14,7 +14,7 @@
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:onClick="showSkyCalender"
+        android:onClick="showSkyCalenderButtonEvent"
         android:text="@string/sky_calender" />
 
 </LinearLayout>

@@ -2766,7 +2766,7 @@ com.mobioapp.skycolorcalender.CameraViewActivity: void captureButtonEvent(androi
 com.mobioapp.skycolorcalender.MainMenuActivity
 com.mobioapp.skycolorcalender.MainMenuActivity: MainMenuActivity()
 com.mobioapp.skycolorcalender.MainMenuActivity: void skyColorShareButtonEvent(android.view.View)
-com.mobioapp.skycolorcalender.MainMenuActivity: void showSkyCalender(android.view.View)
+com.mobioapp.skycolorcalender.MainMenuActivity: void showSkyCalenderButtonEvent(android.view.View)
 com.mobioapp.skycolorcalender.R: R()
 com.mobioapp.skycolorcalender.R$attr: R$attr()
 com.mobioapp.skycolorcalender.R$dimen: int activity_horizontal_margin
@@ -2776,6 +2776,7 @@ com.mobioapp.skycolorcalender.R$drawable: int ic_launcher
 com.mobioapp.skycolorcalender.R$drawable: R$drawable()
 com.mobioapp.skycolorcalender.R$id: int action_settings
 com.mobioapp.skycolorcalender.R$id: int button_capture
+com.mobioapp.skycolorcalender.R$id: int button_share
 com.mobioapp.skycolorcalender.R$id: int camera_preview
 com.mobioapp.skycolorcalender.R$id: int sky_color
 com.mobioapp.skycolorcalender.R$id: R$id()
@@ -2789,6 +2790,7 @@ com.mobioapp.skycolorcalender.R$string: int app_name
 com.mobioapp.skycolorcalender.R$string: int capture
 com.mobioapp.skycolorcalender.R$string: int hello_world
 com.mobioapp.skycolorcalender.R$string: int share_sky
+com.mobioapp.skycolorcalender.R$string: int share_sky_info
 com.mobioapp.skycolorcalender.R$string: int sky_calender
 com.mobioapp.skycolorcalender.R$string: int sky_color
 com.mobioapp.skycolorcalender.R$string: R$string()
@@ -2797,3 +2799,4 @@ com.mobioapp.skycolorcalender.R$style: int AppTheme
 com.mobioapp.skycolorcalender.R$style: R$style()
 com.mobioapp.skycolorcalender.SkyCalenderActivity: SkyCalenderActivity()
 com.mobioapp.skycolorcalender.util.ColorUtil: ColorUtil()
+com.mobioapp.skycolorcalender.util.DownloadStatisticsAsyncTask: DownloadStatisticsAsyncTask()

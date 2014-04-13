@@ -9,16 +9,26 @@ import android.widget.TextView;
 public class ProcessColorData extends AsyncTask<Bitmap, Integer, String> {
 
 	private TextView tv;
+//	private String colorName;
+//	private int r;
+//	private int g;
+//	private int b;
+	private ColorInfo colorInfo;
 
-	public ProcessColorData(TextView tv) {
+	public ProcessColorData(TextView tv, ColorInfo colorInfo) {
 		this.tv = tv;
+		this.colorInfo=new ColorInfo();
+		colorInfo=this.colorInfo;
 	}
 
 	@Override
 	protected void onPreExecute() {
 		// TODO Auto-generated method stub
 		super.onPreExecute();
+//		setColorinfo(new ColorInfo());
 		
+	
+
 		tv.setText("Updating Color Info,Wait...");
 	}
 
@@ -42,7 +52,7 @@ public class ProcessColorData extends AsyncTask<Bitmap, Integer, String> {
 	protected void onPostExecute(String result) {
 		// TODO Auto-generated method stub
 		super.onPostExecute(result);
-		
+
 		tv.setText(result);
 	}
 
@@ -64,22 +74,68 @@ public class ProcessColorData extends AsyncTask<Bitmap, Integer, String> {
 			}
 		}
 
-		Log.i("cc",
-				""
-						+ rgb(((int) (redBucket / pixelCount)),
-								((int) (greenBucket / pixelCount)),
-								((int) (blueBucket / pixelCount))));
 
 		ColorUtil util = new ColorUtil();
 
-		return util.getColorNameFromRgb(((int) (redBucket / pixelCount)),
-				((int) (greenBucket / pixelCount)),
-				((int) (blueBucket / pixelCount)));
+//		r = (int) (redBucket / pixelCount);
+//		g = (int) (greenBucket / pixelCount);
+//		b = (int) (blueBucket / pixelCount);
+		
+		getColorinfo().setB((int) (blueBucket / pixelCount));
+		getColorinfo().setR((int) (redBucket / pixelCount));
+		getColorinfo().setG((int) (greenBucket / pixelCount));
+
+		getColorinfo().setColorName(util.getColorNameFromRgb(getColorinfo().getR(), getColorinfo().getG(), getColorinfo().getB()));
+
+		return getColorinfo().colorName;
 
 	}
 
 	private int rgb(int red, int green, int blue) {
 		return (0xFF << 24) | (red << 16) | (green << 8) | blue;
+	}
+	
+	public ColorInfo getColorinfo() {
+		return colorInfo;
+	}
+
+	public void setColorinfo(ColorInfo colorinfo) {
+		this.colorInfo = colorinfo;
+	}
+
+	public class ColorInfo{
+		private String colorName;
+		private int r;
+		private int g;
+		private int b;
+		public String getColorName() {
+			return colorName;
+		}
+		public void setColorName(String colorName) {
+			this.colorName = colorName;
+		}
+		public int getR() {
+			return r;
+		}
+		public void setR(int r) {
+			this.r = r;
+		}
+		public int getG() {
+			return g;
+		}
+		public void setG(int g) {
+			this.g = g;
+		}
+		public int getB() {
+			return b;
+		}
+		public void setB(int b) {
+			this.b = b;
+		}
+		
+		
+		
+		
 	}
 
 }
