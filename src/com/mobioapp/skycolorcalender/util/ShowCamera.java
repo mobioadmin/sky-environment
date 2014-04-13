@@ -9,31 +9,42 @@ import android.view.SurfaceView;
 
 public class ShowCamera extends SurfaceView implements SurfaceHolder.Callback {
 
-   private SurfaceHolder holdMe;
-   private Camera theCamera;
+	private SurfaceHolder holdMe;
+	private Camera theCamera;
 
-   public ShowCamera(Context context,Camera camera) {
-      super(context);
-      theCamera = camera;
-      holdMe = getHolder();
-      holdMe.addCallback(this);
-   }
+	public static Camera isCameraAvailiable() {
+		Camera object = null;
+		try {
+			object = Camera.open();
+		} catch (Exception e) {
+		}
+		return object;
+	}
 
-   @Override
-   public void surfaceChanged(SurfaceHolder arg0, int arg1, int arg2, int arg3) {
-   }
+	public ShowCamera(Context context, Camera camera) {
+		super(context);
+		theCamera = camera;
+		holdMe = getHolder();
+		holdMe.addCallback(this);
+	}
 
-   @Override
-   public void surfaceCreated(SurfaceHolder holder) {
-      try   {
-         theCamera.setPreviewDisplay(holder);
-         theCamera.startPreview(); 
-      } catch (IOException e) {
-      }
-   }
+	@Override
+	public void surfaceChanged(SurfaceHolder arg0, int arg1, int arg2, int arg3) {
+	}
 
-   @Override
-   public void surfaceDestroyed(SurfaceHolder arg0) {
-   }
+	@Override
+	public void surfaceCreated(SurfaceHolder holder) {
+		try {
+			theCamera.setPreviewDisplay(holder);
+			theCamera.startPreview();
+		} catch (IOException e) {
+		}
+	}
 
+	@Override
+	public void surfaceDestroyed(SurfaceHolder arg0) {
+	}
+
+	
+	
 }

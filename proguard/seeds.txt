@@ -2763,7 +2763,6 @@ com.mobioapp.skycolorcalender.BuildConfig: BuildConfig()
 com.mobioapp.skycolorcalender.CameraViewActivity
 com.mobioapp.skycolorcalender.CameraViewActivity: CameraViewActivity()
 com.mobioapp.skycolorcalender.CameraViewActivity: void captureButtonEvent(android.view.View)
-com.mobioapp.skycolorcalender.ColorUtil: ColorUtil()
 com.mobioapp.skycolorcalender.MainMenuActivity
 com.mobioapp.skycolorcalender.MainMenuActivity: MainMenuActivity()
 com.mobioapp.skycolorcalender.MainMenuActivity: void skyColorShareButtonEvent(android.view.View)
@@ -2796,4 +2795,5 @@ com.mobioapp.skycolorcalender.R$string: R$string()
 com.mobioapp.skycolorcalender.R$style: int AppBaseTheme
 com.mobioapp.skycolorcalender.R$style: int AppTheme
 com.mobioapp.skycolorcalender.R$style: R$style()
-com.mobioapp.skycolorcalender.SkyCalender: SkyCalender()
+com.mobioapp.skycolorcalender.SkyCalenderActivity: SkyCalenderActivity()
+com.mobioapp.skycolorcalender.util.ColorUtil: ColorUtil()

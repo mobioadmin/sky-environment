@@ -3,7 +3,7 @@ package com.mobioapp.skycolorcalender;
 import android.app.Activity;
 import android.os.Bundle;
 
-public class SkyCalender extends Activity {
+public class SkyCalenderActivity extends Activity {
 
 	
 	@Override

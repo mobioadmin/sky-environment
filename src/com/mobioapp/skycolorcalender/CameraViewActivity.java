@@ -1,19 +1,26 @@
 package com.mobioapp.skycolorcalender;
 
-import com.mobioapp.skycolorcalender.util.ProcessColorData;
-import com.mobioapp.skycolorcalender.util.ShowCamera;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.hardware.Camera;
 import android.hardware.Camera.PictureCallback;
+import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.mobioapp.skycolorcalender.util.LocationHelper;
+import com.mobioapp.skycolorcalender.util.ProcessColorData;
+import com.mobioapp.skycolorcalender.util.ShowCamera;
 
 public class CameraViewActivity extends Activity {
 
@@ -22,22 +29,13 @@ public class CameraViewActivity extends Activity {
 	private TextView colorTextView;
 	private FrameLayout cameraPreview;
 
-	public static Camera isCameraAvailiable() {
-		Camera object = null;
-		try {
-			object = Camera.open();
-		} catch (Exception e) {
-		}
-		return object;
-	}
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.camera_view);
 		colorTextView = (TextView) findViewById(R.id.sky_color);
-		cameraObject = isCameraAvailiable();
+		cameraObject = ShowCamera.isCameraAvailiable();
 		showCamera = new ShowCamera(this, cameraObject);
 		cameraPreview = (FrameLayout) findViewById(R.id.camera_preview);
 		cameraPreview.addView(showCamera);
@@ -47,6 +45,22 @@ public class CameraViewActivity extends Activity {
 	public void captureButtonEvent(View view) {
 
 		cameraObject.takePicture(null, null, capturedIt);
+
+	}
+
+	public void shareColorWithGPSAndTime() {
+
+		LocationHelper helper = new LocationHelper(this, false);
+
+		if (helper.checkIfAnyGPSProviderEnabled()) {
+
+			Location location = helper.getLocation();
+
+		}
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mmZ",
+				Locale.US);
+		Log.i("sdf", "" + sdf.format(new Date()));
 
 	}
 
