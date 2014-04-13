@@ -5,6 +5,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 
 public class LocationHelper implements LocationListener {
 
@@ -20,6 +21,9 @@ public class LocationHelper implements LocationListener {
 
 		this.context = context;
 		this.activateLocationListener = activateLocationListener;
+		
+		locationManager = (LocationManager) context
+				.getSystemService(Activity.LOCATION_SERVICE);
 
 		if (this.activateLocationListener)
 			activateLocationListener();
@@ -38,10 +42,9 @@ public class LocationHelper implements LocationListener {
 
 	public Location getLocation() {
 
-		locationManager = (LocationManager) context
-				.getSystemService(Activity.LOCATION_SERVICE);
+		
 
-		checkIfAnyGPSProviderEnabled();
+		checkIfAnyOfGPSProviderEnabled();
 
 		if (isGPSEnabled)
 			location = locationManager
@@ -51,11 +54,13 @@ public class LocationHelper implements LocationListener {
 					.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 		else
 			location = null;
+		
+		Log.i("lovc",""+location.getLatitude());
 
 		return location;
 	}
 
-	public Boolean checkIfAnyGPSProviderEnabled() {
+	public Boolean checkIfAnyOfGPSProviderEnabled() {
 
 		isGPSEnabled = false;
 		isNetworkEnabled = false;

@@ -5,7 +5,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -14,11 +13,12 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-
+import android.annotation.SuppressLint;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.util.Log;
 
+@SuppressLint("NewApi")
 public class UploadInfoAsyncTask extends AsyncTask<String, Integer, Boolean> {
 
 	private String colorName;
@@ -59,6 +59,15 @@ public class UploadInfoAsyncTask extends AsyncTask<String, Integer, Boolean> {
 				String.valueOf(location.getLatitude()));
 		list = uploadInfo(list, "location_alt",
 				String.valueOf(location.getAltitude()));
+		
+//		list = uploadInfo(list, "location_lat",
+//				"lat");
+//		list = uploadInfo(list, "location_long",
+//			"long");
+//		list = uploadInfo(list, "location_alt",
+//				"alt");
+		
+		
 		list = uploadInfo(list, "datetime", dateTime);
 		list = uploadInfo(list, "color", colorName);
 		list = uploadInfo(list, "r", String.valueOf(r));
@@ -66,6 +75,8 @@ public class UploadInfoAsyncTask extends AsyncTask<String, Integer, Boolean> {
 		list = uploadInfo(list, "b", String.valueOf(b));
 
 		String result = UploadInfoUsingPost(urlStr, list);
+		
+		Log.i("echo",result);
 
 		if (result.toLowerCase().equals("success"))
 			return true;
@@ -80,6 +91,8 @@ public class UploadInfoAsyncTask extends AsyncTask<String, Integer, Boolean> {
 		StringBuilder sb;
 		InputStream is = null;
 		String result = "";
+		
+		Log.i("url",urlStr);
 
 		try {
 
@@ -108,6 +121,8 @@ public class UploadInfoAsyncTask extends AsyncTask<String, Integer, Boolean> {
 
 			is.close();
 			result = sb.toString();
+			
+			Log.i("result",result);
 
 		} catch (Exception e) {
 			Log.e("log_tag", "Error converting result " + e.toString());

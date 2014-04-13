@@ -23,7 +23,7 @@ public class MainMenuActivity extends Activity {
 
 	public void showSkyCalenderButtonEvent(View view) {
 
-//		startActivity(new Intent(this, SkyCalenderActivity.class));
+		startActivity(new Intent(this, SkyCalenderActivity.class));
 
 	}
 

@@ -20,8 +20,9 @@ import android.widget.Toast;
 
 import com.mobioapp.skycolorcalender.util.LocationHelper;
 import com.mobioapp.skycolorcalender.util.ProcessColorData;
-import com.mobioapp.skycolorcalender.util.ShowCamera;
 import com.mobioapp.skycolorcalender.util.ProcessColorData.ColorInfo;
+import com.mobioapp.skycolorcalender.util.ShowCamera;
+import com.mobioapp.skycolorcalender.util.UploadInfoAsyncTask;
 
 public class CameraViewActivity extends Activity {
 
@@ -52,21 +53,24 @@ public class CameraViewActivity extends Activity {
 
 	}
 
-	public void shareButtonEvent() {
+	public void shareButtonEvent(View view) {
 
+		Location location=null;
 		LocationHelper helper = new LocationHelper(this, false);
 
-		if (helper.checkIfAnyGPSProviderEnabled()) {
+		if (helper.checkIfAnyOfGPSProviderEnabled()) {
 
-			Location location = helper.getLocation();
+			 location = helper.getLocation();
 
 		}
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mmZ",
 				Locale.US);
-		Log.i("sdf", "" + sdf.format(new Date()));
+		Log.i("sdf", "" + sdf.format(new Date())+":"+location.getLatitude());
+		
+		new UploadInfoAsyncTask(colorInfo.getColorName(), colorInfo.getR(), colorInfo.getG(), colorInfo.getB(), location, sdf.format(new Date()));
 
-		// new UploadInfoAsyncTask(colorName, r, g, b, location, dateTime)
+//		 new UploadInfoAsyncTask("Black", 1, 2, 3, location, "yyyy-MM-dd HH:mmZ").execute("http://mobioapp.net/apps/sky_cam/image_upload.php");
 
 	}
 
