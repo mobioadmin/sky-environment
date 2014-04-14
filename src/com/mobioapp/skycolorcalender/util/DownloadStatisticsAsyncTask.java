@@ -91,7 +91,7 @@ public class DownloadStatisticsAsyncTask extends
 				latlong.setText(dbEn.lat + "," + dbEn.lon);
 
 			}
-			// time.setWidth(0);
+			// time.setWidth(0);01761331487
 
 			time.setLayoutParams(params2);
 			color.setLayoutParams(params2);
