@@ -33,6 +33,8 @@ public class CameraViewActivity extends Activity {
 	private FrameLayout cameraPreview;
 	private ColorInfo colorInfo;
 	private Button uploadButton;
+	
+	private ProcessColorData processColorData;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -72,9 +74,14 @@ public class CameraViewActivity extends Activity {
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mmZ",
 				Locale.US);
-		Log.i("sdf", "" + sdf.format(new Date())+":"+location.getLatitude());
 		
-		new UploadInfoAsyncTask(colorInfo.getColorName(), colorInfo.getR(), colorInfo.getG(), colorInfo.getB(), location, sdf.format(new Date()));
+		colorInfo=processColorData.getColorinfo();
+		
+		Log.i("color",colorInfo.getColorName());
+		
+//		Log.i("sdf", "" + sdf.format(new Date())+":"+location.getLatitude());
+		
+		new UploadInfoAsyncTask(colorInfo.getColorName(), colorInfo.getR(), colorInfo.getG(), colorInfo.getB(), location, sdf.format(new Date()),this).execute("http://mobioapp.net/apps/sky_cam/image_upload.php");
 
 //		 new UploadInfoAsyncTask("Black", 1, 2, 3, location, "yyyy-MM-dd HH:mmZ").execute("http://mobioapp.net/apps/sky_cam/image_upload.php");
 
@@ -85,7 +92,9 @@ public class CameraViewActivity extends Activity {
 
 			Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
 
-			new ProcessColorData(colorTextView,colorInfo).execute(bitmap);
+			processColorData=	new ProcessColorData(colorTextView,colorInfo);
+			
+			processColorData.execute(bitmap);
 
 			if (bitmap == null) {
 				Toast.makeText(getApplicationContext(), "not taken",
@@ -100,11 +109,11 @@ public class CameraViewActivity extends Activity {
 		}
 	};
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
+//	@Override
+//	public boolean onCreateOptionsMenu(Menu menu) {
+//		// Inflate the menu; this adds items to the action bar if it is present.
+//		getMenuInflater().inflate(R.menu.main, menu);
+//		return true;
+//	}
 
 }

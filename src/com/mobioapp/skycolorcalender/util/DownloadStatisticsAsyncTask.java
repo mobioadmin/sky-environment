@@ -16,6 +16,7 @@ import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
@@ -51,14 +52,14 @@ public class DownloadStatisticsAsyncTask extends
 	protected void onPostExecute(String response) {
 		// TODO Auto-generated method stub
 		super.onPostExecute(response);
-		ArrayList<DatabaseEntity> arlist=	parseData(response);
-		
+		ArrayList<DatabaseEntity> arlist = parseData(response);
+
 		addRowInLayout(arlist);
 	}
 
 	private void addRowInLayout(ArrayList<DatabaseEntity> arlist) {
-		
-		int max=arlist.size()<11?arlist.size():10;
+
+		int max = arlist.size() < 11 ? arlist.size() : 10;
 
 		for (int i = 0; i < max; i++) {
 
@@ -67,7 +68,7 @@ public class DownloadStatisticsAsyncTask extends
 			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
 					LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT, 0);
 
-			params.leftMargin = 20;
+//			params.leftMargin = 20;
 
 			LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(
 					0, LayoutParams.WRAP_CONTENT, 33);
@@ -77,19 +78,18 @@ public class DownloadStatisticsAsyncTask extends
 			TextView time = new TextView(context);
 			TextView color = new TextView(context);
 			TextView latlong = new TextView(context);
-			
-			DatabaseEntity dbEn=arlist.get(i);
+
+			DatabaseEntity dbEn = arlist.get(i);
 
 			if (i == 0) {
-				time.setText("time");
-				color.setText("color");
-				latlong.setText("latlong");
-			}else{
+				time.setText("Time");
+				color.setText("Color");
+				latlong.setText("Lat-Long");
+			} else {
 				time.setText(dbEn.date);
 				color.setText(dbEn.color);
-				latlong.setText(dbEn.lat+","+dbEn.lon);
-				
-				
+				latlong.setText(dbEn.lat + "," + dbEn.lon);
+
 			}
 			// time.setWidth(0);
 
@@ -104,6 +104,8 @@ public class DownloadStatisticsAsyncTask extends
 			ll.addView(time);
 			ll.addView(color);
 			ll.addView(latlong);
+			if (i == 0)
+				ll.setBackgroundColor(Color.GRAY);
 
 			layout.addView(ll);
 		}

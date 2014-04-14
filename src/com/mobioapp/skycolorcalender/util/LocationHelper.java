@@ -55,7 +55,9 @@ public class LocationHelper implements LocationListener {
 		else
 			location = null;
 		
-		Log.i("lovc",""+location.getLatitude());
+		if(location==null)
+		
+		Log.i("location","null");
 
 		return location;
 	}

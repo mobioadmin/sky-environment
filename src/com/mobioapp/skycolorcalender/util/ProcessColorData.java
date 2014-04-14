@@ -1,11 +1,13 @@
 package com.mobioapp.skycolorcalender.util;
 
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.TextView;
 
+@SuppressLint("NewApi")
 public class ProcessColorData extends AsyncTask<Bitmap, Integer, String> {
 
 	private TextView tv;
@@ -17,8 +19,8 @@ public class ProcessColorData extends AsyncTask<Bitmap, Integer, String> {
 
 	public ProcessColorData(TextView tv, ColorInfo colorInfo) {
 		this.tv = tv;
+//		this.setColorInfo(new ColorInfo());
 		this.colorInfo=new ColorInfo();
-		colorInfo=this.colorInfo;
 	}
 
 	@Override
@@ -96,11 +98,19 @@ public class ProcessColorData extends AsyncTask<Bitmap, Integer, String> {
 	}
 	
 	public ColorInfo getColorinfo() {
-		return colorInfo;
+		return getColorInfo();
 	}
 
 	public void setColorinfo(ColorInfo colorinfo) {
-		this.colorInfo = colorinfo;
+		this.setColorInfo(colorinfo);
+	}
+
+	public ColorInfo getColorInfo() {
+		return colorInfo;
+	}
+
+	public void setColorInfo(ColorInfo colorInfo) {
+		this.colorInfo = colorInfo;
 	}
 
 	public class ColorInfo{

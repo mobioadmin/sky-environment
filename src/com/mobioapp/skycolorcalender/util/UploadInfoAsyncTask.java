@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -13,10 +14,14 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Context;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 @SuppressLint("NewApi")
 public class UploadInfoAsyncTask extends AsyncTask<String, Integer, Boolean> {
@@ -27,9 +32,10 @@ public class UploadInfoAsyncTask extends AsyncTask<String, Integer, Boolean> {
 	private int b;
 	private Location location;
 	private String dateTime;
+	private Activity context;
 
 	public UploadInfoAsyncTask(String colorName, int r, int g, int b,
-			Location location, String dateTime) {
+			Location location, String dateTime,Activity context) {
 
 		this.colorName = colorName;
 		this.r = r;
@@ -37,6 +43,7 @@ public class UploadInfoAsyncTask extends AsyncTask<String, Integer, Boolean> {
 		this.b = b;
 		this.location = location;
 		this.dateTime = dateTime;
+		this.context=context;
 	}
 
 	@Override
@@ -52,13 +59,26 @@ public class UploadInfoAsyncTask extends AsyncTask<String, Integer, Boolean> {
 		List<NameValuePair> list = new ArrayList<NameValuePair>();
 
 		String urlStr = params[0];
+		
+		String lat="na";
+		String lon="na";
+		String alt="na";
+//		String 
+		
+		
+		if(location!=null){
+		lat=String.valueOf(location.getLatitude());
+		lon=String.valueOf(location.getLongitude());
+		alt=String.valueOf(location.getAltitude());
+		
+		}
 
 		list = uploadInfo(list, "location_lat",
-				String.valueOf(location.getLatitude()));
+				lat);
 		list = uploadInfo(list, "location_long",
-				String.valueOf(location.getLatitude()));
+				lon);
 		list = uploadInfo(list, "location_alt",
-				String.valueOf(location.getAltitude()));
+				alt);
 		
 //		list = uploadInfo(list, "location_lat",
 //				"lat");
@@ -155,6 +175,9 @@ public class UploadInfoAsyncTask extends AsyncTask<String, Integer, Boolean> {
 	protected void onPostExecute(Boolean result) {
 		// TODO Auto-generated method stub
 		super.onPostExecute(result);
+		
+		Toast.makeText(context, "uploaded",
+				Toast.LENGTH_SHORT).show();
 	}
 
 }
